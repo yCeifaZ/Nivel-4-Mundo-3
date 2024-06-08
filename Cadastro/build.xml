@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="Cadastro" default="dist" basedir=".">
+    <!-- Inicialização -->
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.name" value="${dist.dir}/Cadastro.jar"/>
+
+    <!-- Limpar diretórios de build e distribuição -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <!-- Criar diretórios de build e distribuição -->
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <!-- Compilar as classes Java -->
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}">
+            <include name="**/*.java"/>
+        </javac>
+    </target>
+
+    <!-- Criar o arquivo JAR -->
+    <target name="dist" depends="compile">
+        <jar destfile="${jar.name}" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="cadastroee.MainClass"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- Executar o projeto -->
+    <target name="run" depends="dist">
+        <java jar="${jar.name}" fork="true"/>
+    </target>
+</project>
